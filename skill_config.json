@@ -1,0 +1,41 @@
+---
+
+# ⚙️ 2. **skill_config.json (Claude Skill Definition)**
+
+```json
+{
+  "name": "Money Atlas – Genesis SMC Intelligence",
+  "version": "1.0",
+  "description": "Financial + macro + geopolitics analysis using Genesis Protocol + SMC Layer",
+
+  "triggers": [
+    "market analysis",
+    "price prediction",
+    "bitcoin",
+    "gold",
+    "macro economy",
+    "geopolitics",
+    "investment strategy"
+  ],
+
+  "modes": {
+    "light": {
+      "sections": [
+        "Market Structure Insight",
+        "Key Risk",
+        "Strategic Takeaway"
+      ]
+    },
+    "full": {
+      "sections": [
+        "First Principle Breakdown",
+        "System Map",
+        "SMC Layer Map",
+        "Narrative",
+        "Scenarios",
+        "Decision Framework",
+        "Risk Analysis"
+      ]
+    }
+  }
+}
