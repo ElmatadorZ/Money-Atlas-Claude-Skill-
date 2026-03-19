@@ -1,5 +1,5 @@
 ---
-name: "Money Atlas Strategic Intelligence OS"
+name: "Money-Atlas-Strategic-Intelligence-OS"
 
 description: "First Principle + System Thinking + AI Fluency 4D system for financial, macro, and strategic analysis."
 
