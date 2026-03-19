@@ -17,6 +17,7 @@ class Orchestrator:
             SMCAgent(),
             SentimentAgent(),
             RiskAgent(),
+            GenesisAgent(),
             PortfolioAgent()
         ]
 
