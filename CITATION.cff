@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+title: "Money Atlas Intelligence OS"
+message: "If you use this system, please cite it as below."
+type: software
+authors:
+  - family-names: Dechanon
+    given-names: Bunyawat
+    alias: ElmatadorZ
+repository-code: 'https://github.com/ElmatadorZ/MoneyAtlas-ClaudeSkill-Agent'
+abstract: >-
+  Financial market strategic intelligence as a Claude Skill. Combines Genesis
+  Protocol reasoning (first principles, system thinking) with a Smart Money
+  Concepts market-structure layer to produce structured scenarios with explicit
+  entry/exit zones and stated uncertainty. Analysis only — not financial advice.
+keywords:
+  - financial-analysis
+  - market-structure
+  - claude-skills
+  - ai-reasoning
+  - scenario-analysis
+license: Apache-2.0
+version: '2.0'

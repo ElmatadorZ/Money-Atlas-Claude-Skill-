@@ -1,0 +1,56 @@
+Money Atlas Intelligence OS
+Financial market strategic intelligence as a Claude Skill.
+
+Copyright 2025-2026 Bunyawat Dechanon (ElmatadorZ)
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+--------------------------------------------------------------------------------
+Attribution
+--------------------------------------------------------------------------------
+Requested (not required beyond this NOTICE):
+
+    Built on Money Atlas Intelligence OS by Bunyawat Dechanon (ElmatadorZ)
+
+This system inherits the First Principle Codex OS (FPCOS) reasoning base layer,
+also Apache-2.0: https://github.com/ElmatadorZ/FirstPrincipleCodex-OS-Skill
+
+--------------------------------------------------------------------------------
+NOT FINANCIAL ADVICE
+--------------------------------------------------------------------------------
+This software analyses markets. It does not advise.
+
+Nothing produced by this system is investment, financial, legal, or tax advice.
+It is an analytical instrument that outputs structured scenarios and explicit
+uncertainty, and it can be wrong. Markets can move against any scenario it
+produces. You are solely responsible for your own decisions and their outcomes.
+
+Consult a licensed financial adviser before acting on any output. Do not deploy
+this system to execute trades with capital you cannot afford to lose. The
+warranty disclaimer in the Apache License (Sections 7 and 8) applies in full.
+
+--------------------------------------------------------------------------------
+Naming
+--------------------------------------------------------------------------------
+The Apache License grants broad rights to use and modify this work but does not
+grant rights to its names or marks (Apache-2.0 Section 6, "Trademarks"). A
+derivative that removes the system's uncertainty disclosure, scenario structure,
+or its refusal to present analysis as advice MUST NOT be presented as "Money
+Atlas Intelligence OS" and MUST NOT imply endorsement by the author.
+
+--------------------------------------------------------------------------------
+History
+--------------------------------------------------------------------------------
+Earlier releases used the custom "Open Cognitive License v1.0", which carried a
+2% contribution clause above $10M USD/year revenue. From this release forward the
+project is Apache-2.0. The prior text remains in the git history.

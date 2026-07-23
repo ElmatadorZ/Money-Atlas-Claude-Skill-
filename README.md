@@ -224,12 +224,30 @@ This skill operates within the broader **Skynet Elite Commander** meta-intellige
 
 ---
 
+## ⚠️ Not financial advice
+
+This system **analyses** markets. It does not advise. Its output is structured scenarios with
+explicit uncertainty — an analytical instrument, not a recommendation, and it can be wrong.
+You are solely responsible for your own decisions. Consult a licensed financial adviser before
+acting on any output, and never deploy it against capital you cannot afford to lose.
+See [NOTICE](NOTICE) and the warranty disclaimer in the [LICENSE](LICENSE).
+
+---
+
 ## License
 
-Open use.  
-Attribution required: **Built on Money Atlas Intelligence OS v2 by Bunyawat Dechanon (ElmatadorZ)**
+**[Apache License 2.0](LICENSE)** — OSI-approved, with an express patent grant. Free to use,
+modify, and redistribute, including commercially at any revenue. Keep the licence and
+[NOTICE](NOTICE), and state any changed files.
 
-Commercial use in systems generating >$10M USD/year: contact for terms.
+Attribution is requested (not required beyond NOTICE):
+**Built on Money Atlas Intelligence OS by Bunyawat Dechanon (ElmatadorZ)**
+
+Apache §6 grants no rights to the name: a derivative that removes the uncertainty disclosure,
+the scenario structure, or the refusal to present analysis as advice must be renamed.
+
+*(Earlier releases used the custom Open Cognitive License v1.0 with a 2% clause above $10M/year;
+it was replaced to remove adoption friction. Prior text is in the git history.)*
 
 ---
 

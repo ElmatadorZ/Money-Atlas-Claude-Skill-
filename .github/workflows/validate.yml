@@ -1,0 +1,66 @@
+name: Validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  python:
+    name: python compiles (py${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.9", "3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Byte-compile every module
+        run: python -m compileall -q . && echo "  OK  all modules compile"
+
+  skill:
+    name: skill integrity
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install --quiet pyyaml
+      - name: Validate skill.md
+        run: python tools/validate_skill.py
+
+  hygiene:
+    name: repo hygiene
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: No secrets, no stray filenames
+        run: |
+          python - <<'PY'
+          import pathlib, re, sys
+          probs = []
+          skip = {'.git', '__pycache__', '.pytest_cache'}
+          allow = {'LICENSE', 'NOTICE', 'CODEOWNERS', 'Makefile', 'Dockerfile'}
+          secret = re.compile(r"(api[_-]?key|secret|token|password)\s*[:=]\s*['\"][A-Za-z0-9_\-]{16,}", re.I)
+          for p in pathlib.Path('.').rglob('*'):
+              if skip & set(p.parts) or not p.is_file(): continue
+              if any(c in p.name for c in '└├─│'): probs.append(f"tree glyph: {p}")
+              if not p.suffix and p.name not in allow and not p.name.startswith('.'):
+                  probs.append(f"missing extension: {p}")
+              if p.suffix in {'.py', '.json', '.txt', '.md'}:
+                  try: t = p.read_text(encoding='utf-8', errors='ignore')
+                  except Exception: continue
+                  if secret.search(t): probs.append(f"possible hardcoded credential: {p}")
+          if probs:
+              print("\n".join(f"  {x}" for x in probs)); sys.exit(1)
+          print("  OK  hygiene clean")
+          PY

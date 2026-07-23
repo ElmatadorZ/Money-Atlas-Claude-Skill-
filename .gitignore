@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Secrets — never commit broker or data-provider credentials
+.env
+.env.*
+!.env.example
+*.key
+credentials.json
+
+# Runtime state / outputs
+memory.json.bak
+*.log
+output/
+logs/
+
+# Tooling
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
