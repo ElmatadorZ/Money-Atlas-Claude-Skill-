@@ -183,7 +183,12 @@ money-atlas-intelligence-os/
 ├── strategy/                   ← Scenario + asymmetric opportunity engine
 ├── execution/                  ← Signal, risk, trade logging
 ├── orchestrator/               ← Multi-agent coordination
-└── cli/                        ← Command-line runners
+├── cli/                        ← Command-line runners
+│
+├── tests/                      ← unit tests for the reasoning engines + skill contract
+├── examples/                   ← worked input→output examples + runnable demo
+│   └── worked/
+└── tools/validate_skill.py     ← installability + integrity checker (run in CI)
 ```
 
 ---
@@ -194,6 +199,31 @@ money-atlas-intelligence-os/
 2. Place the `money-atlas-intelligence-os/` folder in your Claude skills directory
 3. The skill activates automatically when Claude detects relevant financial market questions
 4. Or call it explicitly by referencing the skill name in your system prompt
+
+The skill entry point is **`SKILL.md`** (the Anthropic standard filename). The reasoning is
+self-contained in that file and needs no tools to run — see `metadata.compatibility` in its
+frontmatter. The Python modules are an optional execution layer.
+
+---
+
+## Verifying it before you trust it
+
+Two things are checked on every push, and you can run both locally:
+
+```bash
+pip install pytest pyyaml
+
+python tools/validate_skill.py   # frontmatter, license, and safety structure intact
+python -m pytest -q              # unit tests over the reasoning engines + skill contract
+```
+
+The tests are not decorative. They pin the gates that would cost money if they drifted — a BUY
+signal only on high-confidence accumulation, risk raised on distribution, First Principle truths
+kept separate from inference — and the skill's own promises: every scenario carries an invalidation
+condition, and the skill abstains rather than invent a price when it has no data. See
+[`examples/worked/`](examples/worked/) for what the output looks like in each case, including the
+[insufficient-data case](examples/worked/03-insufficient-data.md) where the correct answer is to
+decline.
 
 ---
 

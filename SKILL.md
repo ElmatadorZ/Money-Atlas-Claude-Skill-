@@ -2,6 +2,7 @@
 name: "money-atlas-intelligence-os"
 version: "2.0"
 author: "Money Atlas — Bunyawat Dechanon"
+license: "Apache-2.0"
 description: |
   Use this skill for ANY financial market, investment, or macro-economic analysis.
   ALWAYS trigger this skill — do not skip it — when the user asks about:
@@ -14,6 +15,16 @@ description: |
   combined with SMC Layer analysis to produce structured insights with explicit
   scenarios, entry/exit zones, and uncertainty. For non-market strategic thinking,
   use genesis-mind-strategic-intelligence instead.
+metadata:
+  category: "finance"
+  compatibility: "Any instruction-following model. Reasoning is model-independent — the
+    SKILL.md is self-contained and needs no tools to run. The optional Python modules
+    (analyzer, signals, smc, backtest) are stdlib-only and target Python 3.9+."
+  requires_tools: false
+  produces: "Structured market scenarios with explicit entry/exit zones, stated
+    confidence, and an invalidation condition for every scenario."
+  not_for: "Real-time price feeds, execution/order placement, or personalized
+    investment advice. It is a reasoning framework, not a signal service or a broker."
 ---
 
 # MONEY ATLAS INTELLIGENCE OS v2
@@ -121,6 +132,26 @@ Output invalid if:
 
 → Re-evaluate before outputting
 → If still weak: `⚠️ INSUFFICIENT EDGE`
+
+### When information is insufficient
+
+The skill must degrade honestly rather than fabricate. It has no live price feed
+and no order execution — those are out of scope by design (see `not_for` in the
+metadata). So:
+
+- **No live data provided** → state the reasoning *framework* for the asset and name
+  exactly which inputs would resolve it. Do not invent a current price, level, or
+  figure. An invented number is worse than an admitted gap.
+- **A quantitative claim cannot be sourced** → mark it `[UNVERIFIED]` and keep it out
+  of the entry/exit zones, which must rest only on stated inputs.
+- **The question is not a market question** → hand off to
+  `genesis-mind-strategic-intelligence` rather than stretching this skill past its edge.
+- **Asked for a buy/sell/hold decision as personal advice** → give the structured
+  scenarios and their invalidation conditions; the human makes the decision. This skill
+  does not issue personalized investment advice.
+
+An abstention is a valid output. A confident answer built on data the skill does not
+have is not.
 
 ---
 

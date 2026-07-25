@@ -2,7 +2,7 @@
 """
 validate_skill.py — integrity checks for Money Atlas Intelligence OS.
 
-READ-ONLY. Never modifies skill.md. Verifies the skill is installable
+READ-ONLY. Never modifies SKILL.md. Verifies the skill is installable
 (frontmatter well-formed) and that its safety-relevant structure is intact.
 
 Run:  python tools/validate_skill.py
@@ -26,8 +26,15 @@ except ImportError:
     sys.exit(1)
 
 ROOT = Path(__file__).resolve().parent.parent
-SKILL = ROOT / "skill.md"
+# The Claude/Anthropic standard filename is SKILL.md (uppercase). A lowercase
+# skill.md is tolerated by a case-insensitive filesystem but missed by strict
+# discovery tooling, so the canonical name is preferred and the old one is a
+# fallback only.
+SKILL = ROOT / "SKILL.md"
+if not SKILL.exists() and (ROOT / "skill.md").exists():
+    SKILL = ROOT / "skill.md"
 REQUIRED = ["name", "description"]
+RECOMMENDED = ["license", "version"]
 
 results: list[tuple[str, bool]] = []
 
@@ -39,7 +46,7 @@ def check(name: str, cond: bool) -> None:
 
 def main() -> int:
     if not SKILL.exists():
-        print(f"FATAL: skill.md not found at {SKILL}")
+        print(f"FATAL: SKILL.md not found at {SKILL}")
         return 1
     text = SKILL.read_text(encoding="utf-8")
 
@@ -58,6 +65,11 @@ def main() -> int:
         check(f"frontmatter has '{f}'", f in fm)
     check("name is slug-safe (a-z0-9-)",
           bool(re.fullmatch(r"[a-z0-9][a-z0-9-]*", str(fm.get("name", "")))))
+    for f in RECOMMENDED:
+        check(f"frontmatter declares '{f}'", f in fm)
+    check("license is Apache-2.0 (matches LICENSE file)",
+          str(fm.get("license", "")).lower().replace(" ", "-") == "apache-2.0")
+    check("canonical filename is SKILL.md", SKILL.name == "SKILL.md")
 
     body = text[m.end():]
     print("\nINTEGRITY")
@@ -66,6 +78,12 @@ def main() -> int:
           re.search(r"uncertaint|confidence", body, re.I) is not None)
     check("output requires scenarios",
           re.search(r"scenario", body, re.I) is not None)
+    check("output requires an invalidation point",
+          re.search(r"invalidation", body, re.I) is not None)
+    check("declares graceful degradation when data is insufficient",
+          re.search(r"insufficient|no live data|abstention|abstain", body, re.I) is not None)
+    check("declares it is not personalized investment advice",
+          re.search(r"not.{0,20}(financial|investment) advice|does not issue", body, re.I) is not None)
 
     print("\nREPOSITORY")
     check("LICENSE exists", (ROOT / "LICENSE").exists())
@@ -81,7 +99,7 @@ def main() -> int:
     if passed != total:
         print("FAILED:", [n for n, ok in results if not ok])
         return 1
-    print("skill.md is installable and structurally intact.")
+    print(f"{SKILL.name} is installable and structurally intact.")
     return 0
 
 

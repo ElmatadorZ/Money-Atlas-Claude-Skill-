@@ -35,8 +35,24 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install --quiet pyyaml
-      - name: Validate skill.md
+      - name: Validate SKILL.md
         run: python tools/validate_skill.py
+
+  tests:
+    name: unit tests (py${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.9", "3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - run: pip install --quiet pytest pyyaml
+      - name: Run the reasoning-engine and skill-contract tests
+        run: python -m pytest -q
 
   hygiene:
     name: repo hygiene
